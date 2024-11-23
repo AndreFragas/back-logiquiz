@@ -14,8 +14,8 @@ async function bootstrap() {
   app.enableCors();
 
   const swaggerConfig: SwaggerConfig = {
-    title: 'Albionboard API',
-    description: 'Api for Albionboard.',
+    title: 'Logiquiz API',
+    description: 'Api for Logiquiz.',
     version: '1.0',
     contact: {
       name: 'Developer Support',
