@@ -8,6 +8,8 @@ import { ResponseLoggerMiddleware } from 'middlewares/response.middleware';
 import { GrupoUsuariosModule } from './grupo-usuarios/grupo-usuarios.module';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { EncryptionDecryptionMiddleware } from 'middlewares/encryptionDecryprion.middleware';
+import { JogosModule } from './jogos/jogos.module';
+import { PerguntasModule } from './perguntas/perguntas.module';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { EncryptionDecryptionMiddleware } from 'middlewares/encryptionDecryprion
     SessoesModule,
     PermissoesModule,
     GrupoUsuariosModule,
+    JogosModule,
+    PerguntasModule
   ],
 })
 export class AppModule implements NestModule {
