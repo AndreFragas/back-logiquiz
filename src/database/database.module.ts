@@ -8,6 +8,11 @@ import { Sessoes } from "src/_common/entities/sessoes.entity";
 import { Permissoes } from "src/_common/entities/permissoes.entity";
 import { GrupoUsuarios } from "src/_common/entities/grupo-usuarios.entity";
 import { GrupoUsuariosPermissoes } from "src/_common/entities/grupo-usuarios-permissoes.entity";
+import { Pergunta } from "src/_common/entities/perguntas.entity";
+import { Alternativa } from "src/_common/entities/alternativas.entity";
+import { Jogo } from "src/_common/entities/jogos.entity";
+import { Fase } from "src/_common/entities/fases.entity";
+import { Aluno } from "src/_common/entities/alunos.entity";
 
 @Module({
     imports: [
@@ -29,7 +34,9 @@ import { GrupoUsuariosPermissoes } from "src/_common/entities/grupo-usuarios-per
                     Sessoes, 
                     Permissoes, 
                     GrupoUsuarios, 
-                    GrupoUsuariosPermissoes
+                    GrupoUsuariosPermissoes,
+                    Pergunta,
+                    Alternativa,
                 ],
                 migrations: [__dirname + '/migrations/*'],
                 synchronize: false,
