@@ -2,18 +2,20 @@ import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/jwt/jwt-auth-guard';
 import { SessionGuard } from 'src/jwt/jwt-session-guard';
 import { CommonApiResponses } from '@farmafacil-web/prismafive/swagger';
-import { create, findAll, findOne, remove, update } from 'src/utils/swagger.utils';
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { create, findAll, findOne, findPagination, remove, update } from 'src/utils/swagger.utils';
+import { Body, Controller, Delete, Get, Param, Post, Put, Query, UseGuards } from '@nestjs/common';
 import { PerguntasUpdateDto } from 'src/_common/dtos/perguntas-update.dto';
 import { PerguntasCreateDto } from 'src/_common/dtos/perguntas-create.dto';
 import { PerguntasService } from './perguntas.service';
+import { PaginationParams } from '@farmafacil-web/prismafive/dtos';
+import { Throttle } from '@nestjs/throttler';
 
 @Controller('perguntas')
 @ApiTags('Perguntas')
 export class PerguntasController {
     constructor(private readonly perguntasService: PerguntasService) {}
 
-    @Get('')
+    @Get('list')
     @findAll('perguntas')
     @CommonApiResponses()
     @UseGuards(JwtAuthGuard, SessionGuard)
@@ -21,7 +23,7 @@ export class PerguntasController {
         return await this.perguntasService.findAll();
     }
 
-    @Post('')
+    @Post('create')
     @create('pergunta', PerguntasCreateDto)
     @CommonApiResponses()
     @UseGuards(JwtAuthGuard, SessionGuard)
@@ -29,7 +31,7 @@ export class PerguntasController {
         return await this.perguntasService.create(usuarioDto);
     }
 
-    @Get(':id')
+    @Get('getById:id')
     @findOne('pergunta')
     @CommonApiResponses()
     @UseGuards(JwtAuthGuard, SessionGuard)

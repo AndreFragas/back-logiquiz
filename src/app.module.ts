@@ -10,6 +10,7 @@ import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/c
 import { EncryptionDecryptionMiddleware } from 'middlewares/encryptionDecryprion.middleware';
 import { JogosModule } from './jogos/jogos.module';
 import { PerguntasModule } from './perguntas/perguntas.module';
+import { AlternativasModule } from './alternativas/alternativas.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { PerguntasModule } from './perguntas/perguntas.module';
     PermissoesModule,
     GrupoUsuariosModule,
     JogosModule,
-    PerguntasModule
+    PerguntasModule,
+    AlternativasModule
   ],
 })
 export class AppModule implements NestModule {
