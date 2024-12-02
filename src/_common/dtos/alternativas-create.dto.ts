@@ -8,5 +8,5 @@ export class AlternativasCreateDto {
 
     @ApiProperty()
     @IsBoolean()
-    dificuldade: boolean;
+    correta: boolean;
 }

@@ -5,6 +5,7 @@ import { Alternativa } from 'src/_common/entities/alternativas.entity';
 import { AlternativasCreateDto } from 'src/_common/dtos/alternativas-create.dto';
 import { AlternativasUpdateDto } from 'src/_common/dtos/alternativas-update.dto';
 import { AlternativasViewDto } from 'src/_common/views/alternativas-view.dto';
+import { AutoDataPlanner } from 'src/utils/auto-data-planner';
 
 @Injectable()
 export class AlternativasService {
@@ -34,8 +35,20 @@ export class AlternativasService {
         return new AlternativasViewDto().toEntity(alternativa);
     }
 
-    async update(id: number, dto: AlternativasUpdateDto) {
-        
+    async update(dto: AlternativasUpdateDto[]) {
+        const alternativas = await this.alternativasRepository.find({ where: { id: In(dto.map((x) => x.id))}});
+        const idsExistentes = alternativas.map((alt) => alt.id);
+        const alternativasParaEditar = dto.filter((x) => idsExistentes.includes(x.id));
+        const alternativasParaCriar = dto.filter((x) => !x.id || !idsExistentes.includes(x.id));
+        if (alternativasParaCriar.length > 0) {
+            let alternativasCriadas: Alternativa[] = [];
+            for (let alternativa of alternativasParaCriar) {
+                delete alternativa.id;
+                alternativasCriadas.push(this.alternativasRepository.create(alternativa));
+            }
+            await this.alternativasRepository.save(alternativasCriadas);
+        }
+        await this.alternativasRepository.save(alternativasParaEditar);
     }
 
     async remove(id: number) {

@@ -6,11 +6,6 @@ import { PerguntasUpdateDto } from 'src/_common/dtos/perguntas-update.dto';
 import { Pergunta } from 'src/_common/entities/perguntas.entity';
 import { AlternativasService } from 'src/alternativas/alternativas.service';
 import { PerguntasViewDto } from 'src/_common/views/perguntas-view.dto';
-import {
-    PaginateUtils,
-    ResponsePaginateUtils,
-  } from '@farmafacil-web/prismafive/utils';
-import { PaginationParams } from '@farmafacil-web/prismafive/dtos';
 
 @Injectable()
 export class PerguntasService {
@@ -38,8 +33,12 @@ export class PerguntasService {
         return new PerguntasViewDto().toEntity(pergunta);
     }
 
-    async update(id: number, dto: PerguntasUpdateDto) {
-        
+    async update(dto: PerguntasUpdateDto) {
+        const pergunta = await this.perguntasRepository.findOne({ where: { id: dto.id }});
+        if (!pergunta) throw new NotFoundException(`Não foi possível encontrar uma pergunta com o id ${dto.id}`);
+        await this.alternativasService.update(dto.alternativas);
+        delete dto.alternativas;
+        await this.perguntasRepository.save(dto);
     }
 
     async remove(id: number) {
