@@ -20,10 +20,6 @@ export class Fase extends BaseEntity{
   numero: number;
 
   @Expose()
-  @Column({ name: 'descricao' ,type: 'text', nullable: true })
-  descricao: string;
-
-  @Expose()
   @OneToMany(() => PerguntaFase, pergunta_fase => pergunta_fase.fase)
   perguntas: PerguntaFase[];
 }

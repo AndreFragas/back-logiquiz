@@ -8,7 +8,10 @@ export class PerguntasViewDto extends BaseView {
         this.texto = pergunta.texto;
         this.dificuldade = pergunta.dificuldade;
         this.ativo = pergunta.ativo;
-        this.alternativas = pergunta.alternativas ? pergunta.alternativas.map((x) => new AlternativasViewDto().toEntity(x)) : null;
+        //this.alternativas = pergunta.alternativas ? pergunta.alternativas.map((x) => new AlternativasViewDto().toEntity(x)) : null;
+        this.alternativas = Array.isArray(pergunta.alternativas)
+        ? pergunta.alternativas.map((x) => new AlternativasViewDto().toEntity(x))
+        : null;
         this.removeNull();
         return this;
     }

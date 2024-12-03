@@ -13,13 +13,13 @@ export class Aluno extends BaseEntity{
   @JoinColumn({ name: 'usuario_id' })
   usuario: Usuario;
 
-  @Column({ name: 'matricula', type: 'text', length: 20, unique: true })
-  matricula: string;
+  @Column({ name: 'matricula', type: 'text', nullable: true })
+  matricula?: string;
 
-  @Column({ name: 'nome', type: 'text', length: 255 })
+  @Column({ name: 'nome', type: 'text' })
   nome: string;
 
-  @Column({ name: 'email', type: 'text', length: 255, unique: true })
+  @Column({ name: 'email', type: 'text', unique: true })
   email: string;
 
   @Column({ name: 'data_nascimento', type: 'date', nullable: true })

@@ -11,6 +11,10 @@ import { EncryptionDecryptionMiddleware } from 'middlewares/encryptionDecryprion
 import { JogosModule } from './jogos/jogos.module';
 import { PerguntasModule } from './perguntas/perguntas.module';
 import { AlternativasModule } from './alternativas/alternativas.module';
+import { FasesModule } from './fases/fases.module';
+import { PerguntasFaseModule } from './perguntas-fase/perguntas-fase.module';
+import { AlunosModule } from './alunos/alunos.module';
+import { RespostasAlunosModule } from './respostas-alunos/respostas-alunos.module';
 
 @Module({
   imports: [
@@ -23,7 +27,11 @@ import { AlternativasModule } from './alternativas/alternativas.module';
     GrupoUsuariosModule,
     JogosModule,
     PerguntasModule,
-    AlternativasModule
+    AlternativasModule,
+    FasesModule,
+    PerguntasFaseModule,
+    AlunosModule,
+    RespostasAlunosModule
   ],
 })
 export class AppModule implements NestModule {

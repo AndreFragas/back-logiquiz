@@ -4,7 +4,7 @@ import { Expose } from 'class-transformer';
 import { Pergunta } from './perguntas.entity';
 import { Fase } from './fases.entity';
 
-@Entity('pergunta-fase')
+@Entity('pergunta_fase')
 export class PerguntaFase extends BaseEntity {
     @Expose()
     @Column({ name: 'pergunta_id' ,type: 'int4' })

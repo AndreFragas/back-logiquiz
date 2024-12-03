@@ -13,6 +13,8 @@ import { Alternativa } from "src/_common/entities/alternativas.entity";
 import { Jogo } from "src/_common/entities/jogos.entity";
 import { Fase } from "src/_common/entities/fases.entity";
 import { Aluno } from "src/_common/entities/alunos.entity";
+import { PerguntaFase } from "src/_common/entities/pergunta-fase.entity";
+import { RespostaAluno } from "src/_common/entities/respostas-alunos.entity";
 
 @Module({
     imports: [
@@ -37,6 +39,11 @@ import { Aluno } from "src/_common/entities/alunos.entity";
                     GrupoUsuariosPermissoes,
                     Pergunta,
                     Alternativa,
+                    Jogo,
+                    Fase,
+                    PerguntaFase,
+                    Aluno,
+                    RespostaAluno
                 ],
                 migrations: [__dirname + '/migrations/*'],
                 synchronize: false,

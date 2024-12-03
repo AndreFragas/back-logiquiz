@@ -6,12 +6,14 @@ import { UsuarioViewDto } from 'src/_common/views/usuario-view.dto';
 import { UsuarioCreateDto } from 'src/_common/dtos/usuario-create.dto';
 import { UsuarioUpdateDto } from 'src/_common/dtos/usuario-update.dto';
 import { ConflictException, Injectable, NotFoundException } from '@nestjs/common';
+import { AlunosService } from 'src/alunos/alunos.service';
 
 @Injectable()
 export class UsuarioService {
     constructor(
         @InjectRepository(Usuario)
-        private readonly usuarioRepository: Repository<Usuario>
+        private readonly usuarioRepository: Repository<Usuario>,
+        private readonly alunosService: AlunosService
     ) {}
 
     async findOneByEmail(email: string): Promise<Usuario> {
@@ -29,6 +31,7 @@ export class UsuarioService {
         usuarioDto.senha = await bcrypt.hash(usuarioDto.senha, 10);
         const novoUsuario = this.usuarioRepository.create(usuarioDto);
         await this.usuarioRepository.save(novoUsuario);
+        if (novoUsuario.grupo_usuario_id === 3) await this.alunosService.create({ usuario_id: novoUsuario.id, nome: novoUsuario.nome, email: novoUsuario.email});
         return { id: novoUsuario.id, nome: novoUsuario.nome }
     }
 

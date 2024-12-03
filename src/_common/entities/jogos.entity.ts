@@ -16,12 +16,16 @@ export class Jogo extends BaseEntity{
   professor: Usuario;
 
   @Expose()
-  @Column({ name: 'dificuldade', type: 'int2'})
-  dificuldade: number;
+  @Column({ name: 'nome', type: 'text'})
+  nome: string;
 
   @Expose()
-  @Column({ name: 'modo_selecao', type: 'int2' })
-  modo_selecao: number; // 0 - manual ou 1 - automatico
+  @Column({ name: 'descricao', type: 'text', nullable: true })
+  descricao: string;
+
+  @Expose()
+  @Column({ name: 'dificuldade', type: 'int2'})
+  dificuldade: number;
 
   @Expose()
   @OneToMany(() => Fase, fase => fase.jogo)

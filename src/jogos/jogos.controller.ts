@@ -2,18 +2,19 @@ import { ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/jwt/jwt-auth-guard';
 import { SessionGuard } from 'src/jwt/jwt-session-guard';
 import { CommonApiResponses } from '@farmafacil-web/prismafive/swagger';
-import { create, findAll, findOne, remove, update } from 'src/utils/swagger.utils';
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { create, findAll, findOne, update } from 'src/utils/swagger.utils';
+import { Body, Controller, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
 import { JogosUpdateDto } from 'src/_common/dtos/jogos-update.dto';
 import { JogosCreateDto } from 'src/_common/dtos/jogos-create.dto';
 import { JogosService } from './jogos.service';
+import { SalvarRespostasJogoDto } from 'src/_common/dtos/salvar-respostas-jogo.dto';
 
 @Controller('jogos')
 @ApiTags('Jogos')
 export class JogosController {
     constructor(private readonly jogosService: JogosService) {}
 
-    @Get('')
+    @Get('list')
     @findAll('jogos')
     @CommonApiResponses()
     @UseGuards(JwtAuthGuard, SessionGuard)
@@ -21,7 +22,7 @@ export class JogosController {
         return await this.jogosService.findAll();
     }
 
-    @Post('')
+    @Post('create')
     @create('jogo', JogosCreateDto)
     @CommonApiResponses()
     @UseGuards(JwtAuthGuard, SessionGuard)
@@ -29,7 +30,7 @@ export class JogosController {
         return await this.jogosService.create(usuarioDto);
     }
 
-    @Get(':id')
+    @Get('getById/:id')
     @findOne('jogo')
     @CommonApiResponses()
     @UseGuards(JwtAuthGuard, SessionGuard)
@@ -37,19 +38,10 @@ export class JogosController {
         return await this.jogosService.findOne(id);
     }
 
-    @Put(':id')
-    @update('jogo', JogosUpdateDto)
+    @Post('salvar-respostas')
     @CommonApiResponses()
     @UseGuards(JwtAuthGuard, SessionGuard)
-    async update(@Param('id') id: number, @Body() dto: JogosUpdateDto) {
-        return await this.jogosService.update(id, dto);
-    }
-
-    @Delete(':id')
-    @remove('jogo')
-    @CommonApiResponses()
-    @UseGuards(JwtAuthGuard, SessionGuard)
-    async remove(@Param('id') id: number) {
-        return await this.jogosService.remove(id);
+    async salvarResposta(@Body() dto: SalvarRespostasJogoDto) {
+        return await this.jogosService.salvarResposta(dto);
     }
 }
