@@ -7,8 +7,8 @@ export class Migrations1732322954318 implements MigrationInterface {
             CREATE TABLE public.jogos (
                 id int4 NOT NULL,
                 professor_id int4 NOT NULL,
-                nome string NOT NULL,
-                descricao string NULL,
+                nome text NOT NULL,
+                descricao text NULL,
                 dificuldade int2 NOT NULL,
                 ativo bool DEFAULT true NOT NULL,
                 data_criacao timestamp DEFAULT now() NOT NULL,
