@@ -17,4 +17,8 @@ export class PerguntasFaseService {
             await this.perguntasFaseRepository.save(perguntaFaseCreate);
         }
     }
+
+    async findByPerguntaId(id: number) {
+        return await this.perguntasFaseRepository.find({ where: { pergunta_id: id}})
+    }
 }
